@@ -13,17 +13,19 @@ postObj = {
 	"quickforward":'yes',
 	"handlekey":'ls'
 }
-user_agent = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) "
-              "AppleWebKit/537.36 (KHTML, like Gecko) "
-              "Chrome/36.0.1985.143 Safari/537.36")
+# user_agent = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) "
+#               "AppleWebKit/537.36 (KHTML, like Gecko) "
+#               "Chrome/36.0.1985.143 Safari/537.36")
 
-post_headers = {"User-Agent": user_agent,
-                }
-
+# post_headers = {"User-Agent": user_agent,
+#                 "Referer": "http://zhixing.bjtu.edu.cn/portal.php"
+#                 }
+# 知行没有验证header UA 和rederer 我想多了
 
 s = requests.Session()  # 可以在多次访问中保留cookie
-s.post(loginUrl, postObj, headers=post_headers)  # POST帐号和密码，设置headers
+s.post(loginUrl, postObj)  # POST帐号和密码，设置headers
+# s.post(loginUrl, postObj, headers=post_headers)  # POST帐号和密码，设置headers
 r = s.get(pageUrl)  # 已经是登录状态了
 
 test = pq(r.text).find('.t_fsz td.t_f')
-print test.text()
+print test.html()
